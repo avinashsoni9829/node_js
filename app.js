@@ -1,5 +1,18 @@
-var new_function=require('./stuff');
+var http=require('http');
+var fs=require('fs');
 
-console.log(new_function.counter(['a','b','c','d','e','f']));
-console.log(new_function.add(6,3));
-console.log(new_function.pi);
+
+var server=http.createServer(function(req,res)
+{
+    console.log('req at'+req.url);
+    res.writeHead(200,{
+        'Content-Type':'text/plain'
+    });
+    
+var myReadStream=fs.createReadStream(__dirname + '/readme.txt','utf8');
+myReadStream.pipe(res);
+
+});
+
+server.listen(3000,'127.0.0.1');
+console.log('server connected !');
