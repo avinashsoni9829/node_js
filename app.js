@@ -1,5 +1,28 @@
-var new_function=require('./stuff');
+var fs=require('fs');
+//can read and write files
+// read!
+var readMe=fs.readFileSync('readme.txt','utf-8');         /// parameters: (file name,charcter encoding,
+fs.writeFileSync('writeMe1.txt','theory.txt');
 
-console.log(new_function.counter(['a','b','c','d','e','f']));
-console.log(new_function.add(6,3));
-console.log(new_function.pi);
+
+
+//sync means that i will completely read the file first and then move to the further code !
+
+
+//write!
+
+
+//async calls : it need a  call back function to fire when the process is complete  ( parameters for call back fun: error,data)
+
+fs.readFile('readme.txt','utf-8',function(err,data)
+{
+    console.log(data);
+});
+
+console.log('hello!!');
+ //write file async
+fs.readFile('readme.txt','utf-8',function(err,data)
+{
+    fs.writeFile('new.txt',data)
+});
+
