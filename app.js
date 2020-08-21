@@ -23,6 +23,6 @@ console.log('hello!!');
  //write file async
 fs.readFile('readme.txt','utf-8',function(err,data)
 {
-    fs.writeFile('new.txt',data)
+    fs.writeFile('new.txt',data,(err)=>{})
 });
 
