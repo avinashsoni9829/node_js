@@ -1,5 +1,10 @@
-var new_function=require('./stuff');
+var events=require('events');
 
-console.log(new_function.counter(['a','b','c','d','e','f']));
-console.log(new_function.add(6,3));
-console.log(new_function.pi);
+var myEmitter= new events.EventEmitter();
+
+
+myEmitter.on('someEvent',function(mssg){
+    console.log(mssg);
+});
+
+myEmitter.emit('someEvent','hello world!')
