@@ -1,5 +1,33 @@
-var new_function=require('./stuff');
+var events=require('events');
 
-console.log(new_function.counter(['a','b','c','d','e','f']));
-console.log(new_function.add(6,3));
-console.log(new_function.pi);
+var util= require('util');
+
+var person = function(name){
+   this.name=name;
+};
+
+util.inherits(person,events.EventEmitter);    //pass:   object ,thing to be inherited
+ 
+var  avinash   = new person ('avinash');
+var  darsh     = new person ('darsh');
+var  ghanish   = new person ('ghanish');
+var  binod     = new person ('binod');
+
+var dost=[avinash,darsh,ghanish,binod];
+
+
+dost.forEach(function(person)  {
+    person.on('speak',function(mssg){
+        console.log(person.name + ' said: ' + mssg);
+    });
+});
+
+
+avinash.emit('speak','jai shree ram!');
+
+darsh.emit('speak','candy crush!');
+
+ghanish.emit('speak','buble ki tuble');
+
+binod.emit('speak','binod');
+
