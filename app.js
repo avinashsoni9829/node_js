@@ -1,5 +1,32 @@
-var new_function=require('./stuff');
+var express=require('express');
 
-console.log(new_function.counter(['a','b','c','d','e','f']));
-console.log(new_function.add(6,3));
-console.log(new_function.pi);
+var app=express();
+//setting ejs as our view engine 
+    
+app.set('view engine','ejs');
+ 
+app.get('/',function(req,res)
+{
+    res.sendFile(__dirname+'/index.html');
+});
+
+
+app.get('/contact',function(req,res)
+{
+    res.sendFile(__dirname+'/contact.html');
+});
+
+// in order to pass data to a view we need to pass it as an object 
+app.get('/profile/:id',function(req,res) {
+    var data={age:21, job:'sleep',hobbies:['eating','sleeping','more sleeping']};
+    
+    res.render('profile',{person: req.params.id,data:data});
+
+
+});
+
+app.listen(3000);
+
+
+
+
