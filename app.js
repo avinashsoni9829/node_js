@@ -1,5 +1,51 @@
-var new_function=require('./stuff');
+var http=require('http');
+var fs=require('fs');
 
-console.log(new_function.counter(['a','b','c','d','e','f']));
-console.log(new_function.add(6,3));
-console.log(new_function.pi);
+
+var server=http.createServer(function(req,res)
+{
+    console.log('req at'+req.url);
+    if(req.url==='/home'|| req.url==='/')
+    {
+        res.writeHead(200,{
+            'Content-Type':'text/html'
+
+    });
+    fs.createReadStream(__dirname+'/index.html').pipe(res);
+    
+    } 
+    else
+    if(req.url==='/contact')
+    {
+        res.writeHead(200,{
+            'Content-Type':'text/html'
+
+    });
+    fs.createReadStream(__dirname+'/contact.html').pipe(res);
+
+
+    }
+    else
+    if(req.url==='/api/ninjas')
+    {
+        var ninjas=[{name:'avinash',age:698},{name:'ram',age:55}];
+        res.writeHead(200,{
+            'Content-Type':'application/json'
+        });
+        res.end(JSON.stringify(ninjas));
+
+        
+    }
+    else{
+        res.writeHead(400,{
+            'Content-Type':'text/html'
+
+    });
+    fs.createReadStream(__dirname+'/404.html').pipe(res);
+
+    }
+    
+});
+
+server.listen(3000,'127.0.0.1');
+console.log('server connected !');
