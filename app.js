@@ -15,7 +15,7 @@ app.get('/',function(req,res)
 
 app.get('/contact',function(req,res)
 {
-    res.render('contact');
+    res.render('contact',{qs:req.query});
 });
 
 // in order to pass data to a view we need to pass it as an object 
