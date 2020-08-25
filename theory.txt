@@ -1,0 +1,211 @@
+
+how to check which version is installed ?    
+->  node -v
+
+node js is useful in 
+a) running javascript on server / computer
+b) read delete update files
+c) communicate with database
+d) great for chatApps  [using web sockets]
+
+# V8 javascript engine :
+ convert javascript into machine code 
+
+
+ #global objects
+
+ setTimeout () is a global object
+ setInterval() is a global object
+ // tip: use ctrl+C to stop a infinte loop /any process in the terminal window !
+
+// find the current directory name 
+console.log(__dirname);
+// find the current file name 
+console.log(__filename);
+
+// create a new file in git bash
+$ touch count.js
+
+
+in order to use some function outside the file we need to export the particular function by using 
+
+1) module.exports= function_name
+2) in the file where the function is exported create a new variable and use the require function
+
+for ex:
+suppose in 
+file A there is a function X which we need to export to file B 
+
+______________________________________________________
+code in file A:                                       |
+- - - - - - -  - - - - - - - - - - -                  |
+function(X) defination ... ..                         |
+                                                      |
+module.exports= X;                                    |
+                                                      |
+code in file B:                                       |
+- - - -  - - - -  - - - -  - - - - -                  |
+                                                      |
+var Y=require(./fileA);                               |
+                                                      |
+use Y ...                                             |
+______________________________________________________|
+
+
+// in order to rename a file in git bash
+ mv oldfilename newfilename 
+
+ // if there are multiple function to export then we can use the following format
+
+ ______________________________________________________
+code in file A:                                       
+- - - - - - -  - - - - - - - - - - -                  
+function(X) defination ... ..  
+function(Y) defination ... .. 
+function(Z) defination ... ..                        
+                                                      
+module.exports.X= X;   
+module.exports.Y=Y;
+module.exports.Z=Z;                                     
+                                                      
+code in file B:                                       
+- - - -  - - - -  - - - -  - - - - -                  
+                                                      
+var W=require(./fileA);
+use  W.X
+use  W.Y
+use  W.Z                                                                 
+______________________________________________________
+
+
+
+
+# another way to do this :
+just replace the variable name of the function by module.exports.function name
+
+# another way to export
+
+[keep the variable name as it is ]
+module.exports{
+    X:X,
+    Y:Y,
+    Z:Z
+};
+
+
+# fs 
+
+fs is used to read and write files !
+
+fs.readFileSync('fileName','character encoding');
+
+fs.writeFileSync('new file name','old file name/var');
+
+
+
+//  note : in order to delete a file use the command : rm 'file name'
+
+//async calls
+fs.readFile('filename','character encoding',callfunction(error,data){
+    wharterver needs to be done(for ex: log data);
+});
+
+//this doesnt block the code further
+fs.readFile('filename','character encoding',callfunction(error,data){
+    fs.writeFile('new file name',data);
+});
+
+
+asyn code helps when there are multiple requests on the server  so it perform better then sync one !
+
+
+in order to delete a file using fs we write the command :
+// in async mode
+ fs.unlink('file name',function(err){
+    if(err)
+    throw err;
+});
+
+//sync mode
+fs.unlinkSync('file Name');
+
+
+#creating directory 
+(sync method)
+
+fs.mkdirSync('file name!');
+(async method)  //directory with a file along with it 
+fs.mkdir('directoryname',callbackfunction(params)
+{
+    fs.readFile('filename','character encoding',callbackfunction(err,data)
+    {
+        fs.writeFile('new file location',data,callbackfunction(err)
+        {
+            if(err)
+            throw err;
+        });
+    }
+    
+)});
+
+
+#removing directory
+(sync method)
+
+fs.rmdir('file Name');
+
+(in case directory is not empty)
+
+1.unlink the files then call rmdir function
+for ex:
+(if one file is there !)
+
+fs.unlink('filename',function()
+{
+    fs.rmdir('directory name',function(err)
+    {
+        if(err)
+        throw err;
+            
+    });
+});
+
+(if multiple file exists)
+
+(sync method)
+
+for (file of fs.readdirSync('./stuff'))
+ fs.unlinkSync(`./stuff/${file}`);
+
+fs.rmdir('./stuff');  // delete folder
+
+(async methdod (just add call back function))
+lik:
+err =>{}
+
+
+
+
+
+#creating server in node.js
+(using the http module in node.js)
+
+
+#streams in node.js
+1)writable streams
+2)readable streams
+3)duplex streams
+
+
+#pipes
+take data from a readstream and transfer it automatically to writestream . so we dont need to write commands for it specifically to read-write
+
+
+#pipeing json using end()
+
+.end method either takes a string or a buffer in the parameters!  so we cant directly send the object we have created
+so we use the json.stringify method to convert the object into the string 
+
+
+#express package:
+express helps in Routing,templating,Search !
